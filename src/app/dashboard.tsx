@@ -2,12 +2,12 @@
 
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
   ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
 
 export default function Dashboard() {

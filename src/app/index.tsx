@@ -1,98 +1,150 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { router } from "expo-router";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+const destinos = [
+  {
+    id: "1",
+    nome: "Paris",
+    pais: "França",
+    preco: 8500,
+    emoji: "🗼",
+  },
+  {
+    id: "2",
+    nome: "Bali",
+    pais: "Indonésia",
+    preco: 6500,
+    emoji: "🌴",
+  },
+  {
+    id: "3",
+    nome: "Tóquio",
+    pais: "Japão",
+    preco: 12000,
+    emoji: "⛩️",
+  },
+  {
+    id: "4",
+    nome: "Nova York",
+    pais: "EUA",
+    preco: 7800,
+    emoji: "🗽",
+  },
+  {
+    id: "5",
+    nome: "Rio de Janeiro",
+    pais: "Brasil",
+    preco: 2800,
+    emoji: "🏖️",
+  },
+];
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <View style={styles.container}>
+      <Text style={styles.subtitle}>
+        Descubra o mundo
+      </Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      <Text style={styles.title}>
+        Para onde vamos? ✈️
+      </Text>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <FlatList
+        data={destinos}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() =>
+              router.push({
+                pathname: "/destino",
+                params: {
+                  nome: item.nome,
+                  pais: item.pais,
+                  preco: item.preco.toString(),
+                  dias: "7",
+                  categoria: "Turismo",
+                },
+              })
+            }
+          >
+            <Text style={styles.emoji}>
+              {item.emoji}
+            </Text>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+            <View>
+              <Text style={styles.nome}>
+                {item.nome}
+              </Text>
+
+              <Text style={styles.pais}>
+                {item.pais}
+              </Text>
+
+              <Text style={styles.preco}>
+                R$ {item.preco}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: "#F5F0EE",
+    padding: 20,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+
+  subtitle: {
+    color: "#777",
+    marginTop: 20,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
+
   title: {
-    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#E65A1C",
   },
-  code: {
-    textTransform: 'uppercase',
+
+  card: {
+    backgroundColor: "#FFF",
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 15,
+    flexDirection: "row",
+    alignItems: "center",
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  emoji: {
+    fontSize: 40,
+    marginRight: 15,
+  },
+
+  nome: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+
+  pais: {
+    color: "#666",
+  },
+
+  preco: {
+    color: "#E65A1C",
+    fontWeight: "bold",
+    marginTop: 5,
   },
 });
