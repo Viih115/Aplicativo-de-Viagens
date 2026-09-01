@@ -79,7 +79,7 @@ export default function Dashboard() {
           <View style={styles.searchContainer}>
             <TextInput
               placeholder="Buscar destinos..."
-              placeholderTextColor="#d7f3ea"
+              placeholderTextColor="#FFE0B2"
               style={styles.input}
             />
           </View>
@@ -167,7 +167,7 @@ export default function Dashboard() {
 
                 <View style={styles.cardFooter}>
                   <Text style={styles.rating}>
-                    {item.rating}
+                    ★ {item.rating}
                   </Text>
 
                   <Text style={styles.price}>
@@ -179,33 +179,6 @@ export default function Dashboard() {
           </View>
         </View>
       </ScrollView>
-
-      {/* BOTTOM NAVBAR */}
-      <View style={styles.bottomBar}>
-        <TouchableOpacity>
-          <Text style={styles.activeBottomText}>
-            Início
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.bottomText}>
-            Explorar
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.bottomText}>
-            Viagem
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.bottomText}>
-            Perfil
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
@@ -213,20 +186,20 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FAFAFA',
   },
 
   /* HEADER */
 
   header: {
-    backgroundColor: '#0C8A63',
-    paddingTop: 60,
+    backgroundColor: '#E65100', // Laranja escuro principal
+    paddingTop: 80, // Espaço ajustado para o menu do topo
     paddingHorizontal: 20,
     paddingBottom: 30,
   },
 
   greeting: {
-    color: '#D7F3EA',
+    color: '#FFE0B2',
     fontSize: 14,
     marginBottom: 8,
   },
@@ -242,7 +215,7 @@ const styles = StyleSheet.create({
   /* SEARCH */
 
   searchContainer: {
-    backgroundColor: '#4CA58A',
+    backgroundColor: '#F57C00', // Laranja tom médio
     borderRadius: 12,
     paddingHorizontal: 15,
     height: 50,
@@ -258,7 +231,7 @@ const styles = StyleSheet.create({
 
   content: {
     padding: 20,
-    paddingBottom: 100,
+    paddingBottom: 40,
   },
 
   sectionTitle: {
@@ -280,14 +253,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: 10,
     backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#FFE0B2',
   },
 
   activeCategory: {
-    backgroundColor: '#0C8A63',
+    backgroundColor: '#E65100', // Laranja escuro para a categoria ativa
+    borderColor: '#E65100',
   },
 
   categoryText: {
-    color: '#000',
+    color: '#424242',
     fontWeight: '500',
   },
 
@@ -306,7 +282,7 @@ const styles = StyleSheet.create({
   },
 
   viewAll: {
-    color: '#0C8A63',
+    color: '#E65100', // Link em laranja
     fontWeight: '600',
   },
 
@@ -324,6 +300,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 18,
     marginBottom: 18,
+    borderWidth: 1,
+    borderColor: '#FFF3E0',
   },
 
   emoji: {
@@ -355,31 +333,7 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    color: '#0C8A63',
+    color: '#E65100', // Preço destacado em laranja
     fontWeight: 'bold',
-  },
-
-  /* BOTTOM NAV */
-
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 70,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-  },
-
-  activeBottomText: {
-    color: '#0C8A63',
-    fontWeight: 'bold',
-  },
-
-  bottomText: {
-    color: '#666',
   },
 });
